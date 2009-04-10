@@ -1,10 +1,3 @@
-# == TODO
-# 
-#  * write test
-#  * write RDoc
-#  * implement animation to Image
-# 
-
 require 'sdl'
 require 'singleton'
 require 'kconv'
@@ -57,14 +50,13 @@ module MyGame
     # 
     def init(*subsystems)
       subsystems.push(:audio, :video) if subsystems.empty?
-      subsystems.sort!
+      flags = subsystems.map{|k| SDL_INIT_FLAGS.fetch(k) }.inject(:|)
       if @ran_init
-        raise "subsystems already initialized and different composition" unless @ran_init == subsystems
+        raise "subsystems already initialized and different composition" unless @ran_init == flags
         return
       end
-      flags = subsystems.map{|k| SDL_INIT_FLAGS.fetch(k) }.inject(:|)
       raise "subsystems initialize fault" if SDL.inited_system(flags) > 0
-      @ran_init = subsystems
+      @ran_init = flags
       init_events
       SDL.init(flags)
       SDL::Mixer.open if subsystems.include?(:audio)
@@ -455,10 +447,11 @@ module MyGame
       self.angle       = args.fetch(:angle, 0)
       self.scale       = args.fetch(:scale, 1)
       self.transparent = args.fetch(:transparent, false)
+      @animations = Animations.new
+      @ox = @oy = 0
       update
       self.w ||= @image.w
       self.h ||= @image.h
-      @ox = @oy = 0
     end
     
     attr_accessor :angle
@@ -480,6 +473,7 @@ module MyGame
     
     def update
       update_modifies
+      update_animation
     end
     
     def render
@@ -493,6 +487,18 @@ module MyGame
         else SDL.transform_blit(img, screen, angle, scale, scale, w / 2, h / 2, x, y, 0)
         end
       end
+    end
+    
+    def start_animation(label, force_restart = false)
+      @animations.start(label, force_restart)
+    end
+    
+    def stop_animation
+      @animations.stop
+    end
+    
+    def add_animation(table)
+      table.each{|label, params| set_animation(label, *params) }
     end
     
     private
@@ -513,7 +519,66 @@ module MyGame
     def renderable?
       super && @image
     end
+    
+    def set_animation(label, time, pattern, following = :loop)
+      raise "invalid label - `#{label}'" if label == :loop
+      @animations[label] = Animation.new(time, pattern, following)
+    end
+    
+    def update_animation
+      return unless offset = @animations.update
+      n = @image.w / w
+      @ox = offset % n * w
+      @oy = offset / n * h
+    end
   end #class Image
+  
+  Animation = Struct.new(:time, :patten, :following)
+  
+  class Animations
+    def initialize
+      @counter = 0
+      @table = {}
+    end
+    
+    def [](label)
+      @table[label]
+    end
+    
+    def []=(label, animation)
+      @table[label] = animation
+    end
+    
+    def start(label, force_restart = false)
+      self[label] or raise IndexError, "missing animation - `#{label}'"
+      return if @current == label && !force_restart
+      @counter = 0
+      @current = label
+    end
+    
+    def stop
+      @current = nil
+    end
+    
+    # -> offset
+    def update
+      return unless @current
+      anime = self[@current]
+      idx = @counter / anime.time
+      if idx >= anime.patten.size
+        case anime.following
+        when nil   then (stop ; return)
+        when :loop then nil
+        else
+          start anime.following
+          anime = self[@current]
+        end
+        @counter = idx = 0
+      end
+      @counter += 1
+      anime.patten[idx]
+    end
+  end #class Animations
   
   class Wave
     extend Cacheable

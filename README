@@ -1,0 +1,23 @@
+= MyGame
+
+Hacked version of mygame-0.9.1.
+
+Developed on:
+- ruby 1.9.1p0 (2009-01-30 revision 21907) [i386-mswin32]
+- ruby 1.8.7 (2008-08-11 patchlevel 72) [i386-mswin32]
+
+
+== TODO
+
+ * write test
+   ... C0 coverage 50% yet :-(
+ * write RDoc
+   ... by broken English :-(
+ * implement animation to Image
+   * already implemented, do test
+
+
+== Signature
+
+arikui (arikui.ruby@gmail.com)
+

@@ -1,3 +1,5 @@
+# coding: sjis
+
 = MyGame Reference
 
  * ((<MyGame>))
@@ -24,76 +26,76 @@
 === Instance Methods
 
 --- MyGame.add_event(event, tag = nil, &block)
-    イベント処理を追加します。 ((|event|)) はシンボルで指定します。
+    �C�x���g������ǉ����܂��B ((|event|)) �̓V���{���Ŏw�肵�܂��B
     
-    ((|event|)) に指定できるシンボルには次のものがあります。
+    ((|event|)) �Ɏw��ł���V���{���ɂ͎��̂��̂�����܂��B
     
     : :active
-      マウスカーソルのウインドウの出入り、キーボードフォーカスの得失、および最小化・アイコン化
-      されたり元に戻ったときに発生します。
+      �}�E�X�J�[�\���̃E�C���h�E�̏o����A�L�[�{�[�h�t�H�[�J�X�̓����A����эŏ����E�A�C�R����
+      ���ꂽ�茳�ɖ߂����Ƃ��ɔ������܂��B
     : :key_down
-      キーボードを押したときに発生するイベントです。
+      �L�[�{�[�h���������Ƃ��ɔ�������C�x���g�ł��B
     : :key_up
-      キーボードを離したときに発生するイベントです。
+      �L�[�{�[�h�𗣂����Ƃ��ɔ�������C�x���g�ł��B
     : :mouse_motion
-      マウスを動かしたときに発生するイベントです。
+      �}�E�X�𓮂������Ƃ��ɔ�������C�x���g�ł��B
     : :mouse_button_down
-      マウスボタンを押したときのイベントです。
+      �}�E�X�{�^�����������Ƃ��̃C�x���g�ł��B
     : :mouse_button_up
-      マウスボタンを離したときのイベントです。
+      �}�E�X�{�^���𗣂����Ƃ��̃C�x���g�ł��B
     : :joy_axis joy_ball
-      ユーザがジョイスティックの軸を移動させるとこのイベントが発生します。
+      ���[�U���W���C�X�e�B�b�N�̎����ړ�������Ƃ��̃C�x���g���������܂��B
     : :joy_hat joy_button_up
-      ジョイスティックのトラックボールの動きイベントです。
+      �W���C�X�e�B�b�N�̃g���b�N�{�[���̓����C�x���g�ł��B
     : :joy_button_down
-      ジョイスティックのハットスイッチの位置変化イベントです。
+      �W���C�X�e�B�b�N�̃n�b�g�X�C�b�`�̈ʒu�ω��C�x���g�ł��B
     : :quit
-      終了要請イベントです。
+      �I���v���C�x���g�ł��B
     : :video_resize
-      ウィンドウがリサイズされた時は、このイベントが発生します。
+      �E�B���h�E�����T�C�Y���ꂽ���́A���̃C�x���g���������܂��B
     
-    ((|event|)) ごとに、複数の処理を追加できますが、その際 ((|tag|)) を指定していると、
-    ((<remove_event|MyGame.remove_event>)) でその処理だけを取り除くことができます
-    (逆に言うと、 ((|tag|)) を指定していない処理はまとめて消す以外ありません)。
+    ((|event|)) ���ƂɁA�����̏�����ǉ��ł��܂����A���̍� ((|tag|)) ���w�肵�Ă���ƁA
+    ((<remove_event|MyGame.remove_event>)) �ł��̏�����������菜�����Ƃ��ł��܂�
+    (�t�Ɍ����ƁA ((|tag|)) ���w�肵�Ă��Ȃ������͂܂Ƃ߂ď����ȊO����܂���)�B
     
 --- MyGame.background_color
 --- MyGame.background_color=([r, g, b])
-    背景色
+    �w�i�F
 --- MyGame.create_screen(w = 640, h = 480, bpp = 16, flags = SDL::SWSURFACE)
-    スクリーンを生成します。
-    デフォルトでは 640x480 のスクリーンが生成されます。
+    �X�N���[���𐶐����܂��B
+    �f�t�H���g�ł� 640x480 �̃X�N���[������������܂��B
 --- MyGame.fps
 --- MyGame.fps=(n)
     FPS
 --- MyGame.init(*subsystems)
-    MyGame を初期化します。
+    MyGame �����������܂��B
     
-    ((|subsystems|)) は省略されると (({[:audio, :video]})) です。
+    ((|subsystems|)) �͏ȗ������� (({[:audio, :video]})) �ł��B
 --- MyGame.init_events
-    イベントを初期化します。
-    このメソッドを実行すると登録されているイベントはすべてクリアされます。
+    �C�x���g�����������܂��B
+    ���̃��\�b�h�����s����Ɠo�^����Ă���C�x���g�͂��ׂăN���A����܂��B
 --- MyGame.key_pressed?(key)
-    キー入力のチェックを行います。
+    �L�[���͂̃`�F�b�N���s���܂��B
 --- MyGame.main_loop(fps = 60)
-    メインループを実行します。
-    メインループ内で実行する処理をブロックで渡します。
+    ���C�����[�v�����s���܂��B
+    ���C�����[�v���Ŏ��s���鏈�����u���b�N�œn���܂��B
 --- MyGame.new_key_pressed?(key)
-    新規キー入力のチェックを行います。
+    �V�K�L�[���͂̃`�F�b�N���s���܂��B
 --- MyGame.quit
-    MyGame を終了します。
+    MyGame ���I�����܂��B
 --- MyGame.ran_main_loop?
-    ((<main_loop|MyGame.main_loop>)) が呼ばれ済みかどうか
+    ((<main_loop|MyGame.main_loop>)) ���Ă΂�ς݂��ǂ���
 --- MyGame.real_fps
-    FPS の実測値
+    FPS �̎����l
 --- MyGame.remove_event(event, tag = nil)
-    イベント処理を削除します。
+    �C�x���g�������폜���܂��B
     
-    ((|tag|)) が nil だと、 ((|event|)) に関連付けられた処理が全て削除されます。
+    ((|tag|)) �� nil ���ƁA ((|event|)) �Ɋ֘A�t����ꂽ�������S�č폜����܂��B
 --- MyGame.screen
 --- MyGame.screen=(scr)
-    スクリーンオブジェクト。
-    ((<screen=|MyGame.screen=>)) は通常、((<create_screen|MyGame.create_screen>)) があるので
-    使う必要はありません。
+    �X�N���[���I�u�W�F�N�g�B
+    ((<screen=|MyGame.screen=>)) �͒ʏ�A((<create_screen|MyGame.create_screen>)) ������̂�
+    �g���K�v�͂���܂���B
 
 
 
@@ -103,24 +105,24 @@
 
  * @library: mygame.rb
 
-Ruby/SDL の API で画像やサウンドのオブジェクトを生成するクラスが
-extend して、そのキャッシュを行なう。
+Ruby/SDL �� API �ŉ摜��T�E���h�̃I�u�W�F�N�g�𐶐�����N���X��
+extend ���āA���̃L���b�V�����s�Ȃ��B
 
-extend 先には certain_load が実装されていることを期待する。
+extend ��ɂ� certain_load ����������Ă��邱�Ƃ����҂���B
 
 
 === Instance Methods
 
 --- MyGame::Cacheable#cache
-    キャッシュテーブル。 Hash 相当に扱える。
+    �L���b�V���e�[�u���B Hash �����Ɉ�����B
 --- MyGame::Cacheable#load(*features)
-    オブジェクトを生成、またはキャッシュを返す。
+    �I�u�W�F�N�g�𐶐��A�܂��̓L���b�V����Ԃ��B
     
-    ((|features|)) はキャッシュテーブルのキーであり、 #certain_load に丸投げされる
-    引数でもある。
+    ((|features|)) �̓L���b�V���e�[�u���̃L�[�ł���A #certain_load �Ɋۓ��������
+    �����ł�����B
     
-    キャッシュにヒットしなければ、このメソッドは #certain_load を呼んで
-    その結果をキャッシュする。
+    �L���b�V���Ƀq�b�g���Ȃ���΁A���̃��\�b�h�� #certain_load ���Ă��
+    ���̌��ʂ��L���b�V������B
 
 
 
@@ -130,72 +132,72 @@ extend 先には certain_load が実装されていることを期待する。
 
  * @library: mygame.rb
 
-各描画要素の抽象スーパークラス。
+�e�`��v�f�̒��ۃX�[�p�[�N���X�B
 
 
 === Singleton Methods
 
 --- MyGame::DrawPrimitive.new(args = {})
-    擬似キーワード引数を受け取ります。
+    �[���L�[���[�h�������󂯎��܂��B
     
     : :x [=> 0]
-      描画座標
+      �`����W
     : :y [=> 0]
-      描画座標
+      �`����W
     : :w
-      描画幅(ピクセル)
+      �`�敝(�s�N�Z��)
     : :h
-      描画幅(ピクセル)
+      �`�敝(�s�N�Z��)
     : :offset_x [=> 0]
-      描画オフセット
+      �`��I�t�Z�b�g
     : :offset_y [=> 0]
-      描画オフセット
+      �`��I�t�Z�b�g
     : :alpha [=> 255]
-      アルファ値
+      �A���t�@�l
     : :hide [=> false]
-      描画するかどうか
+      �`�悷�邩�ǂ���
 --- MyGame::DrawPrimitive.screen
-    ((<MyGame.screen>)) を参照します。
+    ((<MyGame.screen>)) ���Q�Ƃ��܂��B
 
 
 === Instance Methods
 
 --- MyGame::DrawPrimitive#alpha
 --- MyGame::DrawPrimitive#alpha=(value)
-    アルファ値
+    �A���t�@�l
 --- MyGame::DrawPrimitive#h
 --- MyGame::DrawPrimitive#h=(n)
-    描画幅(ピクセル)
+    �`�敝(�s�N�Z��)
 --- MyGame::DrawPrimitive#hide
 --- MyGame::DrawPrimitive#hide=(bool)
 --- MyGame::DrawPrimitive#hide?
-    描画するかどうか
+    �`�悷�邩�ǂ���
 --- MyGame::DrawPrimitive#hit?(target)
-    衝突判定。
+    �Փ˔���B
     
-    ((|target|)).x, ((|target|)).y が描画物上にある場合に true を返します。
+    ((|target|)).x, ((|target|)).y ���`�敨��ɂ���ꍇ�� true ��Ԃ��܂��B
 --- MyGame::DrawPrimitive#offset_x
 --- MyGame::DrawPrimitive#offset_x=(n)
-    描画オフセット
+    �`��I�t�Z�b�g
 --- MyGame::DrawPrimitive#offset_y
 --- MyGame::DrawPrimitive#offset_y=(n)
-    描画オフセット
+    �`��I�t�Z�b�g
 --- MyGame::DrawPrimitive#render
-    ((<#screen|MyGame::DrawPrimitive#screen>)) に描画する。
+    ((<#screen|MyGame::DrawPrimitive#screen>)) �ɕ`�悷��B
 --- MyGame::DrawPrimitive#screen
 --- MyGame::DrawPrimitive#screen=
-    描画先スクリーン。デフォルトでは ((<MyGame::DrawPrimitive.screen>)) 。
+    �`���X�N���[���B�f�t�H���g�ł� ((<MyGame::DrawPrimitive.screen>)) �B
 --- MyGame::DrawPrimitive#update
-    描画内容などの更新を行なう。
+    �`����e�Ȃǂ̍X�V���s�Ȃ��B
 --- MyGame::DrawPrimitive#w
 --- MyGame::DrawPrimitive#w=(n)
-    描画幅(ピクセル)
+    �`�敝(�s�N�Z��)
 --- MyGame::DrawPrimitive#x
 --- MyGame::DrawPrimitive#x=(n)
-    描画座標
+    �`����W
 --- MyGame::DrawPrimitive#y
 --- MyGame::DrawPrimitive#y=(n)
-    描画座標
+    �`����W
 
 
 
@@ -207,54 +209,66 @@ extend 先には certain_load が実装されていることを期待する。
  * @extend:  ((<MyGame::Cacheable>))
  * @library: mygame.rb
 
-透過表示も可能な画像描画を扱うクラス。
-元祖 MyGame のアニメーション機能は実装されていない。
+���ߕ\�����\�ȉ摜�`��������N���X�B
+���c MyGame �̃A�j���[�V�����@�\�͎�������Ă��Ȃ��B
 
 
 === Singleton Methods
 
 --- MyGame::Image.new(filename, args = {})
-    画像描画を扱うオブジェクトを生成します。
+    �摜�`��������I�u�W�F�N�g�𐶐����܂��B
     
     : filename
-      画像ファイル名を指定します。
+      �摜�t�@�C�������w�肵�܂��B
       
-      対応しているフォーマットは BMP, PNM (PPM/PGM/PBM), XPM,
-      XCF, PCX, GIF, JPEG, TIFF, TGA, PNG, LBM です。
+      �Ή����Ă���t�H�[�}�b�g�� BMP, PNM (PPM/PGM/PBM), XPM,
+      XCF, PCX, GIF, JPEG, TIFF, TGA, PNG, LBM �ł��B
     : args
-      擬似キーワード引数です。
-      スーパークラス ((<MyGame::DrawPrimitive>)) のインターフェイスを
-      継承しています。
+      �[���L�[���[�h�����ł��B
+      �X�[�p�[�N���X ((<MyGame::DrawPrimitive>)) �̃C���^�[�t�F�C�X��
+      �p�����Ă��܂��B
       
       : :angle [=> 0]
-        画像の中点を中心とした回転角。360 で 1 回転
+        �摜�̒��_�𒆐S�Ƃ�����]�p�B360 �� 1 ��]
       : :scale [=> 1]
-        拡大・縮小率。基準値は 1.0
+        �g��E�k�����B��l�� 1.0
       : :transparent [=> false]
-        透過画像として扱うか否か。
-        透過させる場合、透過色となる色を画像のあるピクセルから取得しますが、
-        その位置を与えます。true を与えるとデフォルトの
-        左上([0, 0])から取ります。
+        ���߉摜�Ƃ��Ĉ������ۂ��B
+        ���߂�����ꍇ�A���ߐF�ƂȂ�F���摜�̂���s�N�Z������擾���܂����A
+        ���̈ʒu��^���܂��Btrue ��^����ƃf�t�H���g��
+        ����([0, 0])������܂��B
 
 
 === Instance Methods
 
+--- MyGame::Image#add_animation(table)
+    �A�j���[�V�����E�p�^�[����ǉ����܂��B
+    ((|table|)) �̓��x��(�A�j���[�V�����̎��ʎq�ƂȂ� Symbol )���L�[��
+    �p�����[�^�̔z���������G���g���̃R���N�V�����ł�
+    (�[���L�[���[�h������ Hash ���󂯎�邱�Ƃ�z�肵�Ă��܂�)�B
 --- MyGame::Image#angle
 --- MyGame::Image#angle=(value)
-    画像の中点を中心とした回転角。360 で 1 回転。
+    �摜�̒��_�𒆐S�Ƃ�����]�p�B360 �� 1 ��]�B
 --- MyGame::Image#render
-    スクリーンに画像を描画する。
+    �X�N���[���ɉ摜��`�悷��B
 --- MyGame::Image#scale
 --- MyGame::Image#scale=(value)
-    拡大・縮小率。基準値は 1.0 。
+    �g��E�k�����B��l�� 1.0 �B
+--- MyGame::Image#start_animation(label, force_restart = false)
+    ((|label|)) �Ɋ֘A�t����ꂽ�A�j���[�V�������J�n���܂��B
+    ���̃A�j���[�V���������Ɏ��s���Ȃ�΁A ((|force_restart|)) ���^�łȂ�����
+    �������܂���B
+--- MyGame::Image#stop_animation
+    ���݂̃A�j���[�V�������~���܂��B
+    (�A�j���[�V�������łȂ���Ή����N����܂���)
 --- MyGame::Image#transparent
 --- MyGame::Image#transparent=([x, y])
-    透過色の位置。透過させない場合は false 。デフォルト値を使うなら true 。
-    これを変更しても、 ((<update|MyGame::Image#update>)) を呼ばない限り反映はされない。
+    ���ߐF�̈ʒu�B���߂����Ȃ��ꍇ�� false �B�f�t�H���g�l���g���Ȃ� true �B
+    �����ύX���Ă��A ((<update|MyGame::Image#update>)) ���Ă΂Ȃ����蔽�f�͂���Ȃ��B
 --- MyGame::Image#transparent?
-    透過されているかどうか。
+    ���߂���Ă��邩�ǂ����B
 --- MyGame::Image#update
-    透過設定の変更を反映する。
+    ���ߐݒ�̕ύX�𔽉f����B
 
 
 
@@ -266,79 +280,79 @@ extend 先には certain_load が実装されていることを期待する。
  * @extend:  ((<MyGame::Cacheable>))
  * @library: mygame.rb
 
-あるフォントによる文字列の描画を扱うクラス。
-影付き表示やアンチエイリアス表示も可能。
+����t�H���g�ɂ�镶����̕`��������N���X�B
+�e�t���\����A���`�G�C���A�X�\�����\�B
 
 
 === Singleton Methods
 
 --- MyGame::Font.default_size
 --- MyGame::Font.default_size=(point)
-    デフォルトのフォントサイズ。
+    �f�t�H���g�̃t�H���g�T�C�Y�B
 --- MyGame::Font.default_ttf_path
 --- MyGame::Font.default_ttf_path=(path)
-    デフォルトの TTF フォントファイルのパス。
+    �f�t�H���g�� TTF �t�H���g�t�@�C���̃p�X�B
 --- MyGame::Font.new(str = '', args = {})
-    フォント描画オブジェクトを生成します。
+    �t�H���g�`��I�u�W�F�N�g�𐶐����܂��B
     
     : str
-      描画する文字列。
+      �`�悷�镶����B
     : args
-      擬似キーワード引数です。
-      スーパークラス ((<MyGame::DrawPrimitive>)) のインターフェイスを
-      継承しています。
+      �[���L�[���[�h�����ł��B
+      �X�[�p�[�N���X ((<MyGame::DrawPrimitive>)) �̃C���^�[�t�F�C�X��
+      �p�����Ă��܂��B
       
       : :size [=> MyGame::Font.default_size]
-        フォントサイズ
+        �t�H���g�T�C�Y
       : :ttf_path [=> MyGame::Font.default_ttf_path]
-        使用する TTF フォントファイルのパス
+        �g�p���� TTF �t�H���g�t�@�C���̃p�X
       : :color [=> [255, 255, 255]]
-        フォントの色 ([R, G, B])
+        �t�H���g�̐F ([R, G, B])
       : :smooth [=> false]
-        アンチエイリアスを有効にするかどうか
+        �A���`�G�C���A�X��L���ɂ��邩�ǂ���
       : :shadow [=> false]
-        影の色 ([R, G, B])。影付けをしない場合は false。
-        true が与えられた場合は ((<Font|MyGame::Font>))::DEFAULT_SHADOW 。
+        �e�̐F ([R, G, B])�B�e�t�������Ȃ��ꍇ�� false�B
+        true ���^����ꂽ�ꍇ�� ((<Font|MyGame::Font>))::DEFAULT_SHADOW �B
 --- MyGame::Font.ttf_lookup(font_name)
-    TTF フォントファイルを既定のディレクトリから検索します。
+    TTF �t�H���g�t�@�C��������̃f�B���N�g�����猟�����܂��B
     
-    既定のディレクトリとは、「./font」 と 「Rubyのディレクトリ/share/mygame」 等
-    (Win32 の場合 「C:/Windows/Font」 のような特殊フォルダも含む) です。
+    ����̃f�B���N�g���Ƃ́A�u./font�v �� �uRuby�̃f�B���N�g��/share/mygame�v ��
+    (Win32 �̏ꍇ �uC:/Windows/Font�v �̂悤�ȓ���t�H���_���܂�) �ł��B
 
 
 === Instance Methods
 
 --- MyGame::Font#color
 --- MyGame::Font#color=([r, g, b])
-    フォントの色 ([R, G, B])
+    �t�H���g�̐F ([R, G, B])
     
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
+    ���̍��ڂ� ((<update|MyGame::Font#update>)) ���Ă΂Ȃ��ƕύX�����f����܂���B
 --- MyGame::Font#render
-    スクリーンに文字列を描画する。
+    �X�N���[���ɕ������`�悷��B
 --- MyGame::Font#shadow
 --- MyGame::Font#shadow=([r, g, b])
-    影の色 ([R, G, B])。影付けをしない場合は false。
-    true が与えられた場合は ((<Font|MyGame::Font>))::DEFAULT_SHADOW 。
+    �e�̐F ([R, G, B])�B�e�t�������Ȃ��ꍇ�� false�B
+    true ���^����ꂽ�ꍇ�� ((<Font|MyGame::Font>))::DEFAULT_SHADOW �B
     
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
+    ���̍��ڂ� ((<update|MyGame::Font#update>)) ���Ă΂Ȃ��ƕύX�����f����܂���B
 --- MyGame::Font#shadow?
-    影付けされているかどうか。
+    �e�t������Ă��邩�ǂ����B
 --- MyGame::Font#size
 --- MyGame::Font#size=(point)
-    フォントサイズ
+    �t�H���g�T�C�Y
     
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
+    ���̍��ڂ� ((<update|MyGame::Font#update>)) ���Ă΂Ȃ��ƕύX�����f����܂���B
 --- MyGame::Font#smooth
 --- MyGame::Font#smooth=(bool)
 --- MyGame::Font#smooth?
-    アンチエイリアスを有効にするかどうか
+    �A���`�G�C���A�X��L���ɂ��邩�ǂ���
 --- MyGame::Font#ttf_path
 --- MyGame::Font#ttf_path=(path)
-    使用する TTF フォントファイルのパス
+    �g�p���� TTF �t�H���g�t�@�C���̃p�X
     
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
+    ���̍��ڂ� ((<update|MyGame::Font#update>)) ���Ă΂Ȃ��ƕύX�����f����܂���B
 --- MyGame::Font#update
-    各項目の変更を反映します。
+    �e���ڂ̕ύX�𔽉f���܂��B
 
 
 
@@ -350,36 +364,36 @@ extend 先には certain_load が実装されていることを期待する。
  * @extend:  ((<MyGame::Cacheable>))
  * @library: mygame.rb
 
-長方形の描画を扱うクラス。
+�����`�̕`��������N���X�B
 
 
 === Singleton Methods
 
 --- MyGame::Square.new(x = 0, y = 0, w = 0, h = 0, args = {})
-    長方形の描画を扱うオブジェクトを生成します。
+    �����`�̕`��������I�u�W�F�N�g�𐶐����܂��B
     
     : args
-      擬似キーワード引数です。
-      スーパークラス ((<MyGame::DrawPrimitive>)) のインターフェイスを
-      継承しています。
+      �[���L�[���[�h�����ł��B
+      �X�[�p�[�N���X ((<MyGame::DrawPrimitive>)) �̃C���^�[�t�F�C�X��
+      �p�����Ă��܂��B
       
       : :color [=> [255, 255, 255]]
-        描画に用いる色 ([R, G, B])。
+        �`��ɗp����F ([R, G, B])�B
       : :fill [=> false]
-        領域内を塗りつぶすかどうか。
+        �̈����h��Ԃ����ǂ����B
 
 
 === Instance Methods
 
 --- MyGame::Square#color
 --- MyGame::Square#color=([r, g, b])
-    描画に用いる色 ([R, G, B])。
+    �`��ɗp����F ([R, G, B])�B
 --- MyGame::Square#fill
 --- MyGame::Square#fill=(bool)
 --- MyGame::Square#filled?
-    領域内を塗りつぶすかどうか。
+    �̈����h��Ԃ����ǂ����B
 --- MyGame::Square#render
-    スクリーンに長方形を描画する。
+    �X�N���[���ɒ����`��`�悷��B
 
 
 
@@ -390,36 +404,36 @@ extend 先には certain_load が実装されていることを期待する。
  * @extend:  ((<MyGame::Cacheable>))
  * @library: mygame.rb
 
-効果音や、その演奏を扱うクラス。
+���ʉ���A���̉��t�������N���X�B
 
 
 === Singleton Methods
 
 --- MyGame::Wave.new(filename, n_loop = 1)
-    サウンドを扱うオブジェクトを生成します。
+    �T�E���h�������I�u�W�F�N�g�𐶐����܂��B
     
     : filename
-      音声ファイル名を指定します。
+      �����t�@�C�������w�肵�܂��B
       
-      WAVE, AIFF, RIFF, OGG, VOC に対応しています。
+      WAVE, AIFF, RIFF, OGG, VOC �ɑΉ����Ă��܂��B
     : n_loop
-      繰り返し演奏する回数
+      �J��Ԃ����t�����
     
-    OGG をロードした場合、ロード時にすべてのデータがメモリ上に RAW データとして
-    展開されるので、メモリ使用量に注意してください。
+    OGG �����[�h�����ꍇ�A���[�h���ɂ��ׂẴf�[�^����������� RAW �f�[�^�Ƃ���
+    �W�J�����̂ŁA�������g�p�ʂɒ��ӂ��Ă��������B
 
 
 === Instance Methods
 
 --- MyGame::Wave#n_loop
 --- MyGame::Wave#n_loop=(n)
-    繰り返し演奏する回数。
-    普通は数値ですが、 (({:loop})) は無限に繰り返しすることを意味します。
+    �J��Ԃ����t����񐔁B
+    ���ʂ͐��l�ł����A (({:loop})) �͖����ɌJ��Ԃ����邱�Ƃ��Ӗ����܂��B
 --- MyGame::Wave#play(channel = :auto)
-    サウンドを再生します。
+    �T�E���h���Đ����܂��B
     
-    ((|channel|)) はサウンドを鳴らすチャンネルで適切な数値ですが、 (({:auto})) は
-    自動指定を意味します。
+    ((|channel|)) �̓T�E���h��炷�`�����l���œK�؂Ȑ��l�ł����A (({:auto})) ��
+    �����w����Ӗ����܂��B
 
 
 
@@ -431,26 +445,26 @@ extend 先には certain_load が実装されていることを期待する。
  * @extend:  ((<MyGame::Cacheable>))
  * @library: mygame.rb
 
-BGM に使うような音楽や、その演奏を扱うクラス。
+BGM �Ɏg���悤�ȉ��y��A���̉��t�������N���X�B
 
 
 === Singleton Methods
 
 --- MyGame::Music.new(filename, n_loop = 1)
-    楽曲を扱うオブジェクトを生成します。
-    インターフェイスは ((<MyGame::Wave>)) のままです。
+    �y�Ȃ������I�u�W�F�N�g�𐶐����܂��B
+    �C���^�[�t�F�C�X�� ((<MyGame::Wave>)) �̂܂܂ł��B
     
-    WAVE, MOD, MIDI, OGG, MP3 に対応しています。
-    Windows では環境によっては MP3 がロードできないことがあります。
+    WAVE, MOD, MIDI, OGG, MP3 �ɑΉ����Ă��܂��B
+    Windows �ł͊��ɂ���Ă� MP3 �����[�h�ł��Ȃ����Ƃ�����܂��B
 --- MyGame::Music.stop
-    演奏中の音楽を止めます。
+    ���t���̉��y���~�߂܂��B
 
 
 === Instance Methods
 
 --- MyGame::Music#play(n_loop = self.n_loop)
-    楽曲を演奏します。
-    ((|n_loop|)) は繰り返し回数で、扱いは ((<MyGame::Wave>)) と同じです。
+    �y�Ȃ����t���܂��B
+    ((|n_loop|)) �͌J��Ԃ��񐔂ŁA������ ((<MyGame::Wave>)) �Ɠ����ł��B
 
 
 
@@ -460,17 +474,17 @@ BGM に使うような音楽や、その演奏を扱うクラス。
 
  * @library: mygame/scene.rb
 
-シーン遷移モデルによるゲーム作成を提供する。
+�V�[���J�ڃ��f���ɂ��Q�[���쐬��񋟂���B
 
-シーン定義は ((<MyGame::Scene::Base>)) を継承したクラス定義によって行なう。
-以下、それをシーンクラスと呼ぶ。
+�V�[����`�� ((<MyGame::Scene::Base>)) ���p�������N���X��`�ɂ���čs�Ȃ��B
+�ȉ��A������V�[���N���X�ƌĂԁB
 
 
 === Singleton Methods
 
 --- MyGame::Scene.main_loop(scene_class, fps = 60, step = 1)
-    シーン遷移モデルのメインループを実行します。
-    ((|scene_class|)) はエントリポイントとなるシーンクラスを指定します。
+    �V�[���J�ڃ��f���̃��C�����[�v�����s���܂��B
+    ((|scene_class|)) �̓G���g���|�C���g�ƂȂ�V�[���N���X���w�肵�܂��B
 
 
 
@@ -478,29 +492,29 @@ BGM に使うような音楽や、その演奏を扱うクラス。
 
  * @library: mygame/scene.rb
 
-シーンクラスの抽象スーパークラス。
-メソッドをサブクラスで適切に再定義して、シーンを記述します。
+�V�[���N���X�̒��ۃX�[�p�[�N���X�B
+���\�b�h���T�u�N���X�œK�؂ɍĒ�`���āA�V�[�����L�q���܂��B
 
 
 === Instance Methods
 
 --- MyGame::Scene::Base#frame_counter
-    シーンが開始してからの経過フレーム数を取得します。
+    �V�[�����J�n���Ă���̌o�߃t���[�������擾���܂��B
 --- MyGame::Scene::Base#init
-    シーンの開始と共に実行される。
-    サブクラスで必要ならば再定義してください。
+    �V�[���̊J�n�Ƌ��Ɏ��s�����B
+    �T�u�N���X�ŕK�v�Ȃ�΍Ē�`���Ă��������B
 --- MyGame::Scene::Base#next_scene
-    次に遷移するシーンクラス。
-    この値がセットされると、次のループでシーンを遷移します。
+    ���ɑJ�ڂ���V�[���N���X�B
+    ���̒l���Z�b�g�����ƁA���̃��[�v�ŃV�[����J�ڂ��܂��B
 --- MyGame::Scene::Base#quit
-    次のシーンに遷移する前に実行される。
-    サブクラスで必要ならば再定義してください。
+    ���̃V�[���ɑJ�ڂ���O�Ɏ��s�����B
+    �T�u�N���X�ŕK�v�Ȃ�΍Ē�`���Ă��������B
 --- MyGame::Scene::Base#render
-    update 後に実行される。
-    サブクラスで必要ならば再定義してください。
+    update ��Ɏ��s�����B
+    �T�u�N���X�ŕK�v�Ȃ�΍Ē�`���Ă��������B
 --- MyGame::Scene::Base#update
-    1 ステップごとに実行される。
-    サブクラスで必要ならば再定義してください。
+    1 �X�e�b�v���ƂɎ��s�����B
+    �T�u�N���X�ŕK�v�Ȃ�΍Ē�`���Ă��������B
 
 
 
@@ -508,8 +522,8 @@ BGM に使うような音楽や、その演奏を扱うクラス。
 
  * @library: mygame/scene.rb
 
-シーン遷移の終了点となるシーンクラス。
-このシーンに遷移するとメインループを終了する。
+�V�[���J�ڂ̏I���_�ƂȂ�V�[���N���X�B
+���̃V�[���ɑJ�ڂ���ƃ��C�����[�v���I������B
 
 
 

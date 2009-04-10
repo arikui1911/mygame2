@@ -1,3 +1,6 @@
+# usage: ruby reference-compile.rb [-options] source-file
+#   (more: ruby reference-compile.rb --help
+
 require 'rbconfig'
 require 'optparse'
 
