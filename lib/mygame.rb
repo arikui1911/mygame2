@@ -7,6 +7,7 @@ begin
 rescue LoadError
 end
 
+
 module MyGame
   # Singleton instance which contains MyGame main functions.
   class Core
@@ -22,10 +23,13 @@ module MyGame
     
     include Singleton
     
-    attr_accessor :screen   ; mygame_function :screen, :screen=
-    attr_accessor :fps      ; mygame_function :fps, :fps=
-    attr_reader   :real_fps ; mygame_function :real_fps
-    attr_writer   :background_color
+    attr_accessor   :screen
+    mygame_function :screen, :screen=
+    attr_accessor   :fps
+    mygame_function :fps, :fps=
+    attr_reader     :real_fps
+    mygame_function :real_fps
+    attr_writer     :background_color
     
     # background color [R, G, B] (default: [0, 0, 0])
     def background_color
@@ -36,6 +40,7 @@ module MyGame
     def ran_main_loop?
       @ran_main_loop_p ? true : false
     end
+    mygame_function :ran_main_loop?
     
     SDL_INIT_FLAGS = {
       :audio => SDL::INIT_AUDIO,
