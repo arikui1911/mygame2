@@ -210,7 +210,6 @@ extend 先には certain_load が実装されていることを期待する。
  * @library: mygame.rb
 
 透過表示も可能な画像描画を扱うクラス。
-元祖 MyGame のアニメーション機能は実装されていない。
 
 
 === Singleton Methods
@@ -264,11 +263,10 @@ extend 先には certain_load が実装されていることを期待する。
 --- MyGame::Image#transparent
 --- MyGame::Image#transparent=([x, y])
     透過色の位置。透過させない場合は false 。デフォルト値を使うなら true 。
-    これを変更しても、 ((<update|MyGame::Image#update>)) を呼ばない限り反映はされない。
 --- MyGame::Image#transparent?
     透過されているかどうか。
 --- MyGame::Image#update
-    透過設定の変更を反映する。
+    変更を反映する。
 
 
 
@@ -313,8 +311,11 @@ extend 先には certain_load が実装されていることを期待する。
       : :shadow [=> false]
         影の色 ([R, G, B])。影付けをしない場合は false。
         true が与えられた場合は ((<Font|MyGame::Font>))::DEFAULT_SHADOW 。
+--- MyGame::Font.ttf_font_directories
+    フォント検索パスの配列
 --- MyGame::Font.ttf_lookup(font_name)
-    TTF フォントファイルを既定のディレクトリから検索します。
+    TTF フォントファイルを ((<ttf_font_directories|MyGame::Font.ttf_font_directories>)) から
+    検索します。
     
     既定のディレクトリとは、「./font」 と 「Rubyのディレクトリ/share/mygame」 等
     (Win32 の場合 「C:/Windows/Font」 のような特殊フォルダも含む) です。
@@ -325,23 +326,17 @@ extend 先には certain_load が実装されていることを期待する。
 --- MyGame::Font#color
 --- MyGame::Font#color=([r, g, b])
     フォントの色 ([R, G, B])
-    
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
 --- MyGame::Font#render
     スクリーンに文字列を描画する。
 --- MyGame::Font#shadow
 --- MyGame::Font#shadow=([r, g, b])
     影の色 ([R, G, B])。影付けをしない場合は false。
     true が与えられた場合は ((<Font|MyGame::Font>))::DEFAULT_SHADOW 。
-    
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
 --- MyGame::Font#shadow?
     影付けされているかどうか。
 --- MyGame::Font#size
 --- MyGame::Font#size=(point)
     フォントサイズ
-    
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
 --- MyGame::Font#smooth
 --- MyGame::Font#smooth=(bool)
 --- MyGame::Font#smooth?
@@ -349,10 +344,8 @@ extend 先には certain_load が実装されていることを期待する。
 --- MyGame::Font#ttf_path
 --- MyGame::Font#ttf_path=(path)
     使用する TTF フォントファイルのパス
-    
-    この項目は ((<update|MyGame::Font#update>)) を呼ばないと変更が反映されません。
 --- MyGame::Font#update
-    各項目の変更を反映します。
+    変更を反映します。
 
 
 
