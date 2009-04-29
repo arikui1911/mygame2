@@ -8,9 +8,14 @@ rescue LoadError
 end
 
 
+# MyGame module.
 module MyGame
   # Singleton instance which contains MyGame main functions.
   class Core
+    # Defines module function which delegates to
+    # Core's instance method which is the same name
+    # to MyGame module.
+    # 
     def self.mygame_function(*names)
       MyGame.module_eval{
         names.each do |name|
@@ -23,12 +28,19 @@ module MyGame
     
     include Singleton
     
+    # Screen instance
     attr_accessor   :screen
     mygame_function :screen, :screen=
+    
+    # FPS value
     attr_accessor   :fps
     mygame_function :fps, :fps=
+    
+    # really measured FPS value
     attr_reader     :real_fps
     mygame_function :real_fps
+    
+    # background color [R, G, B]
     attr_writer     :background_color
     
     # background color [R, G, B] (default: [0, 0, 0])
@@ -37,6 +49,7 @@ module MyGame
     end
     mygame_function :background_color, :background_color=
     
+    # Has main_loop() been already called or not?
     def ran_main_loop?
       @ran_main_loop_p ? true : false
     end
@@ -70,6 +83,7 @@ module MyGame
     end
     mygame_function :init
     
+    # Quit.
     def quit
       exit
     end
@@ -186,53 +200,115 @@ module MyGame
     end
   end #class Core
   
+  # Implements cache.
+  # 
+  # An extendee has to respond to #certain_load privately.
+  # It is a loader and cache its result.
+  # 
   module Cacheable
+    # Hash-like cache table
     def cache
       @cache ||= {}
     end
     
+    # Returns the cached or calls #certain_load().
+    # 
+    # It delegates _features_ to #certain_load() as arguments.
+    # 
     def load(*features)
       feature = features.size == 1 ? features.first : features.freeze
       cache[feature] ||= certain_load(*features)
     end
   end
   
+  # Abstract superclass of drawees.
   class DrawPrimitive
+    # Refers screen instance
     def self.screen
       @screen ||= Core.instance.screen
     end
     
+    # Receives _args_ as a keyword-argument-hash.
+    # 
+    # [x]        position (default: 0)
+    # [y]        position (default: 0)
+    # [w]        width (pixel)
+    # [h]        height (pixel)
+    # [offset_x] offset (default: 0)
+    # [offset_y] offset (default: 0)
+    # [alpha]    alpha value (default: 255)
+    # [hide]     draw or not
+    # 
     def initialize(args = {})
       self.screen = self.class.screen
-      self.x        = args.fetch(:x, 0)
-      self.y        = args.fetch(:y, 0)
-      self.w        = args.fetch(:w, nil)
-      self.h        = args.fetch(:h, nil)
-      self.offset_x = args.fetch(:offset_x, 0)
-      self.offset_y = args.fetch(:offset_y, 0)
-      self.alpha    = args.fetch(:alpha, 255)
-      self.hide     = args.fetch(:hide, false)
+      rest = interpret_args(args)
+      rest.empty? or raise ArgumentError, "invalid argument key - #{rest[0].inspect}"
     end
     
+    private
+    
+    def interpret_args_frame(args, rest = args.keys)
+      fetched = []
+      fetcher = lambda{|key, ifnone|
+        fetched << key
+        args.fetch(key, ifnone)
+      }
+      yield(fetcher)
+      rest - fetched
+    end
+    
+    def interpret_args(args)
+      interpret_args_frame(args) do |fetch|
+        self.x        = fetch[:x, 0]
+        self.y        = fetch[:y, 0]
+        self.w        = fetch[:w, nil]
+        self.h        = fetch[:h, nil]
+        self.offset_x = fetch[:offset_x, 0]
+        self.offset_y = fetch[:offset_y, 0]
+        self.alpha    = fetch[:alpha, 255]
+        self.hide     = fetch[:hide, false]
+      end
+    end
+    
+    public
+    
+    # position (default: 0)
     attr_accessor :x, :y
-    attr_accessor :w, :h
+    
+    # width (pixel)
+    attr_accessor :w
+    
+    # height (pixel)
+    attr_accessor :h
+    
+    # offset (default: 0)
     attr_accessor :offset_x, :offset_y
+    
+    # alpha value (default: 255)
     attr_accessor :alpha
+    
+    # draw or not
     attr_accessor :hide
+    
+    # A drawing destination (default: self.class.screen)
     attr_accessor :screen
     
+    # draw or not
     alias hide? hide
     
+    # Judge collision of self and _target_.
     def hit?(target)
       return if hide?
       return unless @disp_x && @disp_y
       SDL::CollisionMap.bounding_box_check(@disp_x, @disp_y, w, h, target.x, target.y, 1, 1)
     end
     
+    # Updates a self condition.
     def update
       ;
     end
     
+    # Does draw
     def render
       ;
     end
@@ -255,9 +331,15 @@ module MyGame
       self.y = y
       self.w = w
       self.h = h
-      self.color = args.fetch(:color, [255, 255, 255])
-      self.fill  = args.fetch(:fill,  false)
     end
+    
+    def interpret_args(args)
+      interpret_args_frame(args, super(args)) do |fetch|
+        self.color = fetch[:color, [255, 255, 255]]
+        self.fill  = fetch[:fill,  false]
+      end
+    end
+    private :interpret_args
     
     attr_accessor :color
     attr_accessor :fill
@@ -333,13 +415,19 @@ module MyGame
     def initialize(str = '', args = {})
       super(args)
       @string = Kconv.toutf8(str)
-      self.size     = args.fetch(:size,     self.class.default_size)
-      self.ttf_path = args.fetch(:ttf_path, self.class.default_ttf_path)
-      self.color    = args.fetch(:color,    [255, 255, 255])
-      self.smooth   = args.fetch(:smooth,   false)
-      self.shadow   = args.fetch(:shadow,   false)
       update
     end
+    
+    def interpret_args(args)
+      interpret_args_frame(args, super(args)) do |fetch|
+        self.size     = fetch[:size,     self.class.default_size]
+        self.ttf_path = fetch[:ttf_path, self.class.default_ttf_path]
+        self.color    = fetch[:color,    [255, 255, 255]]
+        self.smooth   = fetch[:smooth,   false]
+        self.shadow   = fetch[:shadow,   false]
+      end
+    end
+    private :interpret_args
     
     attr_reader   :size
     attr_reader   :ttf_path
@@ -449,15 +537,21 @@ module MyGame
     def initialize(filename, args = {})
       super(args)
       @filename = filename
-      self.angle       = args.fetch(:angle, 0)
-      self.scale       = args.fetch(:scale, 1)
-      self.transparent = args.fetch(:transparent, false)
       @animations = Animations.new
       @ox = @oy = 0
       update
       self.w ||= @image.w
       self.h ||= @image.h
     end
+    
+    def interpret_args(args)
+      interpret_args_frame(args, super(args)) do |fetch|
+        self.angle       = fetch[:angle, 0]
+        self.scale       = fetch[:scale, 1]
+        self.transparent = fetch[:transparent, false]
+      end
+    end
+    private :interpret_args
     
     attr_accessor :angle
     attr_accessor :scale
